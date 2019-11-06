@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -27,8 +28,11 @@
       </Pane>
       <Pane prefHeight="650.0" prefWidth="35.0" style="-fx-background-color: #DCB339;" />
       <Text layoutX="42.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fill in the required fields below:" />
-      <TextField id="secuityIDField" fx:id="securityID" layoutX="58.0" layoutY="72.0" promptText="Security ID" />
-      <Button id="createReportButton" fx:id="createReportButton" layoutX="195.0" layoutY="611.0" mnemonicParsing="false" onAction="#createLogForm" text="Create Report File" />
-      <TextField fx:id="tradeId" layoutX="58.0" layoutY="112.0" promptText="Trade ID" />
+      <TextField id="securityIDFXML" fx:id="securityID" layoutX="58.0" layoutY="72.0" promptText="Security Identifier" />
+      <TextField id="tradeIDFXML" fx:id="tradeID" layoutX="58.0" layoutY="112.0" promptText="Trade Identifier" />
+      <Button id="createReportButtonFXML" fx:id="createReportButton" layoutX="195.0" layoutY="611.0" mnemonicParsing="false" onAction="#createLogForm" text="Create Report File" />
+      <ChoiceBox id="securityIDTypeFXML" fx:id="securityIDType" layoutX="242.0" layoutY="73.0" prefWidth="150.0" />
+      <Text id="errorTextFXML" fx:id="errorText" fill="#e80505" layoutX="239.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" style="visibility: Invisible;" text="Please fill in all required fields." />
+
    </children>
 </AnchorPane>
