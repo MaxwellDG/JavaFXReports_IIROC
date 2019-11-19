@@ -31,16 +31,21 @@ class TestingInputs {
         } return true;
     }
 
-    // This just here for if I need to make floats later on. For now it seems like they're not really necessary for final product //
     boolean isFloat(String theString) {
-        return isNumerical(theString);
+        for (int i = 0; i <theString.length(); i++){
+            char c = theString.charAt(i);
+            if(!Character.isDigit(c)){
+                if(!String.valueOf(c).matches(".")){
+                    return false;
+                }
+            }
+        } return true;
     }
 
     boolean isValidTime(String string){
         if(string.length() != 8){
             return false;
         } else {
-            System.out.println(string.substring(0, 2) + string.substring(3, 5) + string.substring(6, 8));
             if (!string.matches("^(\\d\\d:\\d\\d:\\d\\d)")) {
                 return false;
             } else
@@ -53,7 +58,11 @@ class TestingInputs {
     }
 
     boolean isComboBoxSelected(ComboBox comboBox){
-        if(comboBox.getValue().toString().contains("-- *")){
+        try {
+            if (comboBox.getValue().toString().contains("-- *")) {
+                return false;
+            }
+        } catch (NullPointerException e){
             return false;
         }
         return comboBox.getValue() != null;
@@ -61,7 +70,6 @@ class TestingInputs {
 
     boolean isExistingDate(String theString){
         if(!isNumerical(theString)){
-            System.out.println(theString + "not numerical date.");
             return false;
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -71,11 +79,10 @@ class TestingInputs {
         int currentYear = Integer.parseInt(currentDate.substring(0, 4));
         int currentMonth = Integer.parseInt(currentDate.substring(4, 6));
         int currentDay = Integer.parseInt(currentDate.substring(6, 8));
-        System.out.println(String.valueOf(currentYear) + String.valueOf(currentMonth) + String.valueOf(currentDay) + " is the current date");
+
         int yearInput = Integer.parseInt(theString.substring(0, 4));
         int monthInput = Integer.parseInt(theString.substring(4, 6));
         int dayInput = Integer.parseInt(theString.substring(6, 8));
-        System.out.println(String.valueOf(yearInput) + String.valueOf(monthInput) + String.valueOf(dayInput) + " is the INPUT date");
 
         if(currentYear == yearInput){
             if(monthInput > currentMonth){

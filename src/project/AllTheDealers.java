@@ -2,6 +2,8 @@ package project;
 
 public class AllTheDealers {
 
+    // A class for organizing all the dealer information. Methods for retrieving specific data is at the bottom //
+
     public String[][] allTheDealers = new String[][]{
             new String[]{"IIROCOOOOOOOOOOOACKF","Acker Finley Inc.", "ACKF", "Dealer Member", "Active", "Non-GSD"},
             new String[]{"IIROCOOOOOOOOOOOACUM","Acumen Capital Finance Partners Limited", "ACUM", "Dealer Member", "Active", "Non-GSD"},
@@ -251,14 +253,6 @@ public class AllTheDealers {
         return names;
     }
 
-    public String[] getAllDealerCodes(){
-        String[] codes = new String[allTheDealers.length];
-        for(int i = 0; i < allTheDealers.length; i++){
-            codes[i] = allTheDealers[i][0];
-        }
-        return codes;
-    }
-
     String getADealerCode(String string) {
         if (string.isEmpty()) {
             return "";
@@ -266,6 +260,19 @@ public class AllTheDealers {
             for (String[] row : allTheDealers) {
                 if (row[1].equals(string)) {
                     return row[0];
+                }
+            }
+            return "";
+        }
+    }
+
+    String getADealerName(String string) {
+        if (string.isEmpty()) {
+            return "";
+        } else {
+            for (String[] row : allTheDealers) {
+                if (row[0].equals(string)) {
+                    return row[1];
                 }
             }
             return "";

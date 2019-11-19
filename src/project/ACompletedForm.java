@@ -5,15 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
-// Not just an object creation class. Once the object is constructed a .csv is immediately created //
+public class ACompletedForm {
 
-class ACompletedForm {
-
-    private AllTheDealers allTheDealers = new AllTheDealers();
-    private String date;
-
+    // the field types are total chaos because I only realized half-way through that they could all just be Strings //
     private String securityID;
-    private int securityIDType;
+    private String securityIDType;
     private String tradeID;
     private String originalTradeID;
     private int transType;
@@ -22,81 +18,38 @@ class ACompletedForm {
     private String settlementDate;
     private String traderID;
     private String reportingDealerID;
-    private int counterPartyType;
+    private String counterPartyType;
     private String counterPartyID;
-    private int customerAccType;
+    private String customerAccType;
     private String customerLEI;
     private String customerAccountID;
-    private int introDCarry;
+    private String introDCarry;
     private char electronicExecution;
     private String tradingVenueID;
-    private int side;
+    private String side;
     private int quantity;
     private float price;
     private String benchmarkSecurityID;
-    private int benchmarkSecurityIDType;
+    private String benchmarkSecurityIDType;
     private float yield;
-    private float commission;
-    private int capacity;
+    private String commission;
+    private String capacity;
     private char primaryMarket;
     private char relatedParty;
     private char nonResident;
     private char feeBasedAccount;
 
-    // A second constructor for uploading a .csv into an ObservableList<ACompletedForm> //
-    public ACompletedForm(String securityID, int securityIDType, String tradeID, String originalTradeID, int transType,
-                          String executionDate, String executionTime, String settlementDate, String traderID, String reportingDealerID,
-                          int counterPartyType, String counterPartyID, int customerAccType, String customerLEI,
-                          String customerAccountID, int introDCarry, char electronicExecution, String tradingVenueID,
-                          int side, int quantity, float price, String benchmarkSecurityID, int benchmarkSecurityIDType,
-                          float yield, float commission, int capacity, char primaryMarket, char relatedParty, char nonResident,
-                          char feeBasedAccount) {
-        this.securityID = securityID;
-        this.securityIDType = securityIDType;
-        this.tradeID = tradeID;
-        this.originalTradeID = originalTradeID;
-        this.transType = transType;
-        this.executionDate = executionDate;
-        this.executionTime = executionTime;
-        this.settlementDate = settlementDate;
-        this.traderID = traderID;
-        this.reportingDealerID = reportingDealerID;
-        this.counterPartyType = counterPartyType;
-        this.counterPartyID = counterPartyID;
-        this.customerAccType = customerAccType;
-        this.customerLEI = customerLEI;
-        this.customerAccountID = customerAccountID;
-        this.introDCarry = introDCarry;
-        this.electronicExecution = electronicExecution;
-        this.tradingVenueID = tradingVenueID;
-        this.side = side;
-        this.quantity = quantity;
-        this.price = price;
-        this.benchmarkSecurityID = benchmarkSecurityID;
-        this.benchmarkSecurityIDType = benchmarkSecurityIDType;
-        this.yield = yield;
-        this.commission = commission;
-        this.capacity = capacity;
-        this.primaryMarket = primaryMarket;
-        this.relatedParty = relatedParty;
-        this.nonResident = nonResident;
-        this.feeBasedAccount = feeBasedAccount;
-    }
-
     // All (except transType) conversions to the appropriate format are done during construction //
     ACompletedForm(String securityID, String securityIDType, String tradeID, String originalTradeID, int transType,
-                          String executionDate, String executionTime, String settlementDate, String traderID,
-                          String reportingDealerID, String counterPartyType, String counterPartyID, String customerAccType,
-                          String customerLEI, String customerAccountID, String introDCarry, String electronicExecution,
-                          String tradingVenueID, String side, String quantity, String price, String benchmarkSecurityID,
-                          String benchmarkSecurityIDType, String yield, String commission, String capacity, String primaryMarket,
-                          String relatedParty, String nonResident, String feeBasedAccount) {
+                   String executionDate, String executionTime, String settlementDate, String traderID,
+                   String reportingDealerID, String counterPartyType, String counterPartyID, String customerAccType,
+                   String customerLEI, String customerAccountID, String introDCarry, String electronicExecution,
+                   String tradingVenueID, String side, String quantity, String price, String benchmarkSecurityID,
+                   String benchmarkSecurityIDType, String yield, String commission, String capacity, String primaryMarket,
+                   String relatedParty, String nonResident, String feeBasedAccount) {
         this.securityID = securityID;
-        this.securityIDType = formatToInt(securityIDType);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-        Date currentdate = new Date();
-        date = formatter.format(currentdate);
-        this.tradeID = formatter.format(date) + tradeID;
+        this.securityIDType = formatEntry(securityIDType);
+        this.tradeID = formatTradeID(tradeID);
         this.originalTradeID = originalTradeID;
         this.transType = transType;
         this.executionDate = executionDate;
@@ -104,55 +57,53 @@ class ACompletedForm {
         this.settlementDate = settlementDate;
         this.traderID = traderID;
         this.reportingDealerID = reportingDealerID;
-        this.counterPartyType = formatToInt(counterPartyType);
+        this.counterPartyType = formatEntry(counterPartyType);
         this.counterPartyID = getDealerCode(checkComboBoxNotSelectedOnNonRequired(counterPartyID));
-        this.customerAccType = formatToInt(customerAccType);
+        this.customerAccType = formatEntry(customerAccType);
         this.customerLEI = getDealerCode(checkComboBoxNotSelectedOnNonRequired(customerLEI));
         this.customerAccountID = customerAccountID;
-        this.introDCarry = formatToInt(introDCarry);
+        this.introDCarry = formatEntry(introDCarry);
         this.electronicExecution = electronicExecution.charAt(0);
         this.tradingVenueID = getDealerCode(checkComboBoxNotSelectedOnNonRequired(tradingVenueID));
-        this.side = formatToInt(side);
+        this.side = formatEntry(side);
         this.quantity = Integer.parseInt(quantity);
         this.price = Float.parseFloat(price);
         this.benchmarkSecurityID = benchmarkSecurityID;
-        this.benchmarkSecurityIDType = formatToInt(benchmarkSecurityIDType);
+        this.benchmarkSecurityIDType = formatEntry(benchmarkSecurityIDType);
         this.yield = Float.parseFloat(yield);
-        this.commission = setCommission(commission);
-        this.capacity = formatToInt(capacity);
+        this.commission = String.valueOf(commission);
+        this.capacity = formatEntry(capacity);
         this.primaryMarket = primaryMarket.charAt(0);
         this.relatedParty = relatedParty.charAt(0);
         this.nonResident = nonResident.charAt(0);
         this.feeBasedAccount = feeBasedAccount.charAt(0);
-
-        createCSVFile();
     }
 
-    private String getDealerCode(String string){
-        try{
+    private String getDealerCode(String string) {
+        AllTheDealers allTheDealers = new AllTheDealers();
+        try {
             return allTheDealers.getADealerCode(string);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             return "";
         }
     }
 
-    private int formatToInt(String string){
+    private String formatEntry(String string) {
         try {
             for (int i = 0; i < 8; i++) {
                 if (string.contains(String.valueOf(i))) {
-                    return i;
+                    return String.valueOf(i);
                 }
             }
-            return -4206969;
-            // TODO: you can do better than this catching NPEs crap //
-        } catch (NullPointerException e){
-            return -4206969;
+            return "";
+        } catch (NullPointerException e) {
+            return "";
         }
     }
 
-    private void createCSVFile(){
-        String[] finalList = {getSecurityID(),String.valueOf(getSecurityIDType()), getTradeID(), getOriginalTradeID(),
+    String createCSVFormat() {
+        String[] finalList = {getSecurityID(), String.valueOf(getSecurityIDType()), getTradeID(), getOriginalTradeID(),
                 String.valueOf(getTransType()), getExecutionDate(), getExecutionTime(), getSettlementDate(), getTraderID(),
                 getReportingDealerID(), String.valueOf(getCounterPartyType()), getCounterPartyID(), String.valueOf(getCustomerAccType()),
                 getCustomerLEI(), getCustomerAccountID(), String.valueOf(getIntroDCarry()), String.valueOf(getElectronicExecution()), getTradingVenueID(),
@@ -161,57 +112,108 @@ class ACompletedForm {
                 String.valueOf(getCapacity()), String.valueOf(getPrimaryMarket()), String.valueOf(getRelatedParty()),
                 String.valueOf(getNonResident()), String.valueOf(getFeeBasedAccount())};
 
-        // this changes all of the unfilled combo/choice boxes to blanks //
-        for(int i = 0; i < finalList.length; i++){
-            if(finalList[i].equals("-4206969") || finalList[i].equals("-4206969.0")){
-                finalList[i] = "";
-            }
-        }
-        System.out.println(Arrays.toString(finalList));
-
         StringBuilder sb = new StringBuilder();
-        for(String string : finalList){
+        for (String string : finalList) {
             sb.append(string);
             sb.append(",");
         }
-        sb.deleteCharAt(sb.length()-1);
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
 
-        // TODO: write this to \\documents PATH // // remember to use mkdirs. //
-        try (PrintWriter writer = new PrintWriter(new File(date + "_" + getReportingDealerID() + "_KERN-MTRS_DEBT.csv"))){
-            writer.write(sb.toString());
-            System.out.println("done!");
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+    void writeToFile(String theData) {
+        String userHomeFolder = System.getProperty("user.home");
+        File file = new File(userHomeFolder + "\\IIROC_Reports");
+        if (!file.exists()) {
+            if (file.mkdir()) {
+            }
+        }
+        File log = new File(userHomeFolder + "\\IIROC_Reports\\" +
+                getTradeID().substring(0, 8) + "_" + getReportingDealerID() + "_KERN-MTRS_DEBT.csv");
+        try{
+            FileWriter fileWriter = new FileWriter(log, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(log));
+            if(!log.exists()){
+                log.createNewFile();
+            }
+            if(bufferedReader.readLine() != null) {
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.write(theData);
+            bufferedReader.close();
+            bufferedWriter.close();
+
+        }catch(IOException e){
+            e.printStackTrace();
         }
     }
 
-    public String checkComboBoxNotSelectedOnNonRequired(String string){
-        if(string.contains("--")){
-            return "";
-        } return string;
+    // overloaded method for when there's a correction to be made and the file will have 2 lines instead of one //
+    void writeToFile(String theData, String theOtherData) {
+        String userHomeFolder = System.getProperty("user.home");
+        File file = new File(userHomeFolder + "\\IIROC_Reports");
+        if (!file.exists()) {
+            if (file.mkdir()) {
+            }
+        }
+        File log = new File(userHomeFolder + "\\IIROC_Reports\\" +
+                getTradeID().substring(0, 8) + "_" + getReportingDealerID() + "_KERN-MTRS_DEBT.csv");
+        try{
+            FileWriter fileWriter = new FileWriter(log, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(log));
+            if(!log.exists()){
+                log.createNewFile();
+            }
+            if(bufferedReader.readLine() != null) {
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.write(theData);
+            bufferedWriter.newLine();
+            bufferedWriter.write(theOtherData);
+            bufferedReader.close();
+            bufferedWriter.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
-    public float setCommission(String commission) {
-        if (commission.isEmpty()) {
-            return -4206969;
-        }
+    public String checkComboBoxNotSelectedOnNonRequired(String string) {
         try {
-            return Float.parseFloat(commission);
-        } catch (NumberFormatException e) {
-            return -42069696;
+            if (string.contains("--")) {
+                return "";
+            }
+        } catch (NullPointerException e){
+            return "";
         }
+        return string;
     }
 
     public String getSecurityID() {
         return securityID;
     }
 
-    public int getSecurityIDType() {
+    public String getSecurityIDType() {
         return securityIDType;
     }
 
     public String getTradeID() {
         return tradeID;
+    }
+
+    public void setTradeID(String tradeID){
+        this.tradeID = formatTradeID(tradeID);
+    }
+
+    public String formatTradeID(String string) {
+        if (string.length() == 5) {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+            Date currentdate = new Date();
+            return formatter.format(currentdate) + string;
+        } else {
+            return string;
+        }
     }
 
     public String getOriginalTradeID() {
@@ -221,8 +223,16 @@ class ACompletedForm {
         return originalTradeID;
     }
 
+    public void setOriginalTradeID(String originalTradeID) {
+        this.originalTradeID = originalTradeID;
+    }
+
     public int getTransType() {
         return transType;
+    }
+
+    public void setTransType(int transType){
+        this.transType = transType;
     }
 
     public String getExecutionDate() {
@@ -245,7 +255,7 @@ class ACompletedForm {
         return reportingDealerID;
     }
 
-    public int getCounterPartyType() {
+    public String getCounterPartyType() {
         return counterPartyType;
     }
 
@@ -256,7 +266,7 @@ class ACompletedForm {
         return counterPartyID;
     }
 
-    public int getCustomerAccType() {
+    public String getCustomerAccType() {
         return customerAccType;
     }
 
@@ -274,7 +284,7 @@ class ACompletedForm {
         return customerAccountID;
     }
 
-    public int getIntroDCarry() {
+    public String getIntroDCarry() {
         return introDCarry;
     }
 
@@ -289,11 +299,11 @@ class ACompletedForm {
         return tradingVenueID;
     }
 
-    public int getSide() {
+    public String getSide() {
         return side;
     }
 
-    public float getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
@@ -308,7 +318,7 @@ class ACompletedForm {
         return benchmarkSecurityID;
     }
 
-    public int getBenchmarkSecurityIDType() {
+    public String getBenchmarkSecurityIDType() {
         return benchmarkSecurityIDType;
     }
 
@@ -316,11 +326,14 @@ class ACompletedForm {
         return yield;
     }
 
-    public float getCommission() {
+    public String getCommission() {
+        if(commission.isEmpty()){
+            return "";
+        }
         return commission;
     }
 
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 

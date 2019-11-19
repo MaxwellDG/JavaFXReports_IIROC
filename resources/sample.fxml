@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -18,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.FXMLController">
+<AnchorPane id="anchorPaneFXML" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.FXMLController">
     <children>
       <ImageView id="executionTimeFXML" fitHeight="860.0" fitWidth="691.0" layoutX="4.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" style="visibility: true;">
          <image>
@@ -35,7 +34,7 @@
             <Font size="10.0" />
          </font>
       </RadioButton>
-      <RadioButton id="transCorrectionFXML" fx:id="transCorrection" layoutX="303.0" layoutY="78.0" mnemonicParsing="false" onAction="#setVisibility" prefHeight="18.0" prefWidth="89.0" text="Correction">
+      <RadioButton id="transCorrectionFXML" fx:id="transCorrection" layoutX="303.0" layoutY="78.0" mnemonicParsing="false" onAction="#setVisibility" prefHeight="18.0" prefWidth="122.0" text="Cancel and Correct">
          <font>
             <Font size="10.0" />
          </font>
@@ -48,6 +47,11 @@
                   <Font size="18.0" />
                </font>
             </Text>
+            <ImageView id="helpButtonFXML" fx:id="helpButton" fitHeight="28.0" fitWidth="31.0" layoutX="617.0" layoutY="7.0" onMousePressed="#openHelpDialog" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/baseline_help_outline_black_48dp.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane prefHeight="850.0" prefWidth="35.0" style="-fx-background-color: #E38F2B;" />
@@ -81,6 +85,7 @@
       
                               <ComboBox id="securityIDTypeFXML" fx:id="securityIDType" prefHeight="29.0" prefWidth="212.0" promptText="Security ID Type *" GridPane.columnIndex="2" />
                   <TextField id="tradeIDFXML" fx:id="tradeID" promptText="Trade Number *" GridPane.rowIndex="1" />
+                  <TextField id="cancelTradeIDFXML" fx:id="cancelTradeID" promptText="Cancellation Trade Number *" GridPane.columnIndex="2" GridPane.rowIndex="1" visible="false" />
                   <TextField id="executionDateFXML" fx:id="executionDate" promptText="Execution Date *" GridPane.rowIndex="2" />
                   <TextField id="executionTimeFXML" fx:id="executionTime" prefHeight="26.0" prefWidth="176.0" promptText="Execution Time *" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <TextField id="settlementDateFXML" fx:id="settlementDate" promptText="Settlement Date *" GridPane.rowIndex="3" />
@@ -100,7 +105,7 @@
             <ChoiceBox id="sideFXML" fx:id="side" prefHeight="28.0" prefWidth="72.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
                   <TextField id="bechmarkSecurityIDFXML" fx:id="benchmarkSecurityID" prefHeight="24.0" prefWidth="169.0" promptText="Benchmark Security ID" GridPane.rowIndex="10" />
                   <ComboBox id="benchmarkSecurityIDTypeFXML" fx:id="benchmarkSecurityIDType" prefHeight="29.0" prefWidth="256.0" promptText="Benchmark ID Type" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-                  <TextField id="yieldFMXL" fx:id="yield" promptText="Yield *" GridPane.rowIndex="11" />
+                  <TextField id="yieldFXML" fx:id="yield" promptText="Yield *" GridPane.rowIndex="11" />
                   <TextField id="commissionFMXL" fx:id="commission" prefHeight="26.0" prefWidth="176.0" promptText="Commission" GridPane.columnIndex="2" GridPane.rowIndex="11" />
             <ChoiceBox id="capacityFXML" fx:id="capacity" prefHeight="28.0" prefWidth="82.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="#####" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -131,6 +136,12 @@
                   <Image url="@images/baseline_refresh_black_48dp.png" />
                </image>
             </ImageView>
+
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="#####" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Text>
          </children>
       </GridPane>
       <GridPane alignment="CENTER" layoutX="94.0" layoutY="643.0" prefHeight="92.0" prefWidth="469.0">
@@ -163,16 +174,12 @@
       <Text layoutX="44.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction Type *" />
       <Line endX="599.0" layoutX="51.0" layoutY="107.0" startX="-12.0" />
       <Line endX="5.0" endY="1135.0" layoutX="649.0" layoutY="-285.0" startX="5.0" startY="285.0" />
-      <TableView layoutX="677.0" layoutY="135.0" prefHeight="609.0" prefWidth="299.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
+      <TableView id="tableViewFXML" fx:id="tableView" layoutX="677.0" layoutY="135.0" prefHeight="609.0" prefWidth="299.0" />
       <Button id="browseButtonFXML" fx:id="browseButton" layoutX="887.0" layoutY="91.0" mnemonicParsing="false" onAction="#openFileExplorer" style="-fx-background-color: #E38F2B;" text="Browse files" />
       <Text layoutX="735.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload .csv file to table below" />
-      <Button layoutX="801.0" layoutY="808.0" mnemonicParsing="false" style="-fx-background-color: #E38F2B;" text="Move" />
+      <Button id="moveButtonFXML" fx:id="moveButton" layoutX="801.0" layoutY="808.0" mnemonicParsing="false" onAction="#moveData" style="-fx-background-color: #E38F2B;" text="Move" />
       <Text layoutX="679.0" layoutY="771.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select the desired trade in the table above, then click below to move it to Report Creation" textAlignment="CENTER" wrappingWidth="299.0" />
+      <TextField id="selectFileTextFXML" fx:id="selectedFileText" layoutX="679.0" layoutY="95.0" prefHeight="26.0" prefWidth="197.0" />
 
    </children>
 </AnchorPane>

@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private int screen_width = 1000;
-    private int screen_height = 850;
+    public int screen_width = 650;
+    public int screen_height = 850;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -20,6 +20,9 @@ public class Main extends Application {
         primaryStage.setResizable(false);
     }
 
+    public void setScreen_width(int screen_width) {
+        this.screen_width = screen_width;
+    }
 
     public static void main(String[] args) {
         launch(args);
